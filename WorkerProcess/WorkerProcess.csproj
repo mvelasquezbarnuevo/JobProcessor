@@ -51,6 +51,7 @@
     <Compile Include="Procesess\SimpleProcess.cs" />
     <Compile Include="Worker.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Starter.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

@@ -12,12 +12,11 @@ namespace CaseManagement.WorkerProcess
     {
         private static string _defaultQueue = "task_queue";
 
-        public static void Main()
+        public Worker()
         {
-            RunWorker();
         }
 
-        private static void RunWorker()
+        public void Run(string[] args)
         {
             var factory = new ConnectionFactory() { HostName = "localhost" };
             using (var connection = factory.CreateConnection())
@@ -35,7 +34,8 @@ namespace CaseManagement.WorkerProcess
 
         }
 
-        private static void ConfigureQueueChannel(IModel channel)
+
+        private  void ConfigureQueueChannel(IModel channel)
         {
             channel.QueueDeclare(queue: _defaultQueue,
                                  durable: true,
@@ -45,10 +45,10 @@ namespace CaseManagement.WorkerProcess
 
             channel.BasicQos(prefetchSize: 0, prefetchCount: 1, global: false);
             Console.WriteLine("[*] Waiting for messages...");
-         
+
         }
 
-        private static void ProcessMessage(IModel channel, EventingBasicConsumer consumer)
+        private  void ProcessMessage(IModel channel, EventingBasicConsumer consumer)
         {
 
             consumer.Received += (model, ea) =>
@@ -62,13 +62,13 @@ namespace CaseManagement.WorkerProcess
                 channel.BasicAck(deliveryTag: ea.DeliveryTag, multiple: false);
             };
 
-            
+
         }
         private static void PullMessageFromQueue(IModel channel, EventingBasicConsumer consumer)
         {
             channel.BasicConsume(queue: _defaultQueue,
-                                     noAck: false,
-                                     consumer: consumer);
+                                 noAck: false,
+                                 consumer: consumer);
         }
     }
 }

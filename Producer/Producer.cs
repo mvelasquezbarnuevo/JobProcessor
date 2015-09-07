@@ -9,12 +9,16 @@ namespace CaseManagement.Producer
 {
     public class Producer
     {
-        private static string _defaultQueue = "task_queue";
-        private static ConnectionFactory _factory;
+        private  string _defaultQueue = "task_queue";
+        private  ConnectionFactory _factory;
 
-        public static void Main(string[] args)
+        public Producer()
         {
-            Console.WriteLine(string.Format("Starting producer..."));
+        }
+
+        public  void Run(string[] args)
+        {
+          
 
             Initialize();
             using (var connection = _factory.CreateConnection())
@@ -25,13 +29,12 @@ namespace CaseManagement.Producer
                 PublishMessage(channel, new SimpleTask(taskId));
             }
 
-            Console.WriteLine(" Press [enter] to exit.");
-            Console.ReadLine();
+          
         }
 
        
 
-        private static void PublishMessage(IModel channel, ITask task)
+        private  void PublishMessage(IModel channel, ITask task)
         {
             if (channel == null)
                 throw new ArgumentNullException("channel");
@@ -53,7 +56,7 @@ namespace CaseManagement.Producer
 
         }
 
-        private static void ConfigureQueueChannel(IModel channel)
+        private  void ConfigureQueueChannel(IModel channel)
         {
             if (channel == null)
                 throw new ArgumentNullException("channel");
@@ -65,7 +68,7 @@ namespace CaseManagement.Producer
                                  arguments: null);
         }
 
-        private static void Initialize()
+        private  void Initialize()
         {
             var serverName = ConfigurationManager.AppSettings["ServerName"];
             if (string.IsNullOrEmpty(serverName))

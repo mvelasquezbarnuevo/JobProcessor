@@ -51,6 +51,7 @@
     <Compile Include="Producer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Interfaces\ITask.cs" />
+    <Compile Include="Starter.cs" />
     <Compile Include="Tasks\SimpleTask.cs" />
   </ItemGroup>
   <ItemGroup>
